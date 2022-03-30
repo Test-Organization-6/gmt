@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>mgd77manage &mdash; GMT 6.3.0 documentation</title>
+  <title>mgd77manage &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
@@ -23,9 +23,12 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/togglebutton.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -48,7 +51,7 @@
             <a href="../../index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -156,7 +160,7 @@
 [ <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em> ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <strong>-bi</strong><a class="reference internal" href="../../gmt.html#bi-full"><span class="std std-ref">binary</span></a> ]
-[ <strong>-di</strong>[<strong>+c</strong><em>col</em>]<a class="reference internal" href="../../gmt.html#di-full"><span class="std std-ref">nodata</span></a> ]
+[ <strong>-di</strong><a class="reference internal" href="../../gmt.html#di-full"><span class="std std-ref">nodata</span></a>[<strong>+c</strong><em>col</em>] ]
 [ <strong>-j</strong><a class="reference internal" href="../../gmt.html#distcalc-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-n</strong><a class="reference internal" href="../../gmt.html#n-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>--PAR</strong>=<em>value</em> ]</p>
@@ -211,7 +215,7 @@ code among <strong>a</strong>, <strong>c</strong>, <strong>d</strong>, <strong>D
 <strong>t</strong>, or <strong>T</strong>; detailed descriptions for each choice follow:</p>
 <p><strong>a</strong> Append filename of a single column table to add. File must
 have the same number of rows as the MGD77+ file. If no file is given
-we read from stdin instead.</p>
+we read from standard input instead.</p>
 <p><strong>c</strong> Create a new column that derives from existing data or
 formulas for corrections and reference fields. Append <strong>c</strong> for the
 Carter corrections subtracted from uncorrected depths, <strong>g</strong> for the
@@ -225,7 +229,7 @@ You can override this behavior by appending the desired code: 1 =
 Heiskanen 1924, 2 = International 1930, 3 = IGF1967, or 4 = IGF1980.</p>
 <p><strong>d</strong> Append filename of a two-column table with the first column
 holding distances along track and the second column holding data
-values. If no file is given we read from stdin instead. Records with
+values. If no file is given we read from standard input instead. Records with
 matching distances in the MGD77+ file will be assigned the new
 values; at other distances we set them to NaN. Alternatively, give
 upper case <strong>D</strong> instead and we will interpolate the column at all
@@ -274,12 +278,12 @@ return data only at constrained points and NaN elsewhere, and
 (3) Img file with constraints coded, return 1 at constraints and 0 elsewhere.</p>
 <p><strong>n</strong> Append filename of a two-column table with the first column
 holding the record number (0 to nrows - 1) and the second column
-holding data values. If no file is given we read from stdin instead.
+holding data values. If no file is given we read from standard input instead.
 Records with matching record numbers in the MGD77+ file will be
 assigned the new values; at other records we set them to NaN.</p>
 <p><strong>t</strong> Append filename of a two-column table with the first column
 holding absolute times along track and the second column holding
-data values. If no file is given we read from stdin instead. Records
+data values. If no file is given we read from standard input instead. Records
 with matching times in the MGD77+ file will be assigned the new
 values; at other times we set them to NaN. Alternatively, give upper
 case <strong>T</strong> instead and we will interpolate the column at all record
@@ -357,7 +361,7 @@ numerical data columns.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -371,7 +375,7 @@ any module-specific option (but not the GMT common options), then exit.</p>
 <section id="units">
 <h2>Units<a class="headerlink" href="#units" title="Permalink to this headline">¶</a></h2>
 <p>For map distance unit, append <em>unit</em> <strong>d</strong> for arc degree, <strong>m</strong> for arc
-minute, and <strong>s</strong> for arc second, or <strong>e</strong> for meter [Default], <strong>f</strong>
+minute, and <strong>s</strong> for arc second, or <strong>e</strong> for meter [Default unless stated otherwise], <strong>f</strong>
 for foot, <strong>k</strong> for km, <strong>M</strong> for statute mile, <strong>n</strong> for nautical mile,
 and <strong>u</strong> for US survey foot. By default we compute such distances using
 a spherical approximation with great circles (<strong>-jg</strong>) using the authalic radius
@@ -548,6 +552,8 @@ Luis, and adapted to GMT style by Paul Wessel.</p>
 <p>The Marine Geophysical Data Exchange Format - MGD77, see
 <a class="reference external" href="http://www.ngdc.noaa.gov/mgg/dat/geodas/docs/mgd77.txt">http://www.ngdc.noaa.gov/mgg/dat/geodas/docs/mgd77.txt</a></p>
 <p>IGRF, see <a class="reference external" href="http://www.ngdc.noaa.gov/IAGA/vmod/igrf.html">http://www.ngdc.noaa.gov/IAGA/vmod/igrf.html</a></p>
+<p>Wessel, P., and Chandler, M. T., 2007, The mgd77 supplement to the Generic Mapping Tools,
+<em>Comp. Geosci.</em>, <strong>33</strong>(1), 62-75, <a class="reference external" href="https://doi.org/10.1023/A:1021744224009">https://doi.org/10.1023/A:1021744224009</a>.</p>
 </section>
 </section>
 
@@ -562,8 +568,8 @@ Luis, and adapted to GMT style by Paul Wessel.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on Mar 30, 2022.
       </span></p>
   </div>
 

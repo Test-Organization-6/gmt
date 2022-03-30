@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>psconvert &mdash; GMT 6.3.0 documentation</title>
+  <title>psconvert &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -340,10 +344,10 @@ cases when the plot has any of the sides with whites only because
 than the algorithm will fail miserably as those whites will be eaten
 by the Ghostscript. In that case you really must use <strong>-B</strong> or use a
 slightly off-white color.</p>
-<p>Together with <strong>-V</strong> it prints on screen the gdal_translate
-(gdal_translate is a command line tool from the GDAL package)
+<p>Together with <strong>-V</strong> it prints on screen the <em>gdal_translate</em>
+(<em>gdal_translate</em> is a command line tool from the <a class="reference external" href="https://gdal.org/">GDAL package</a>)
 command that reads the raster + world file and creates a true
-geotiff file. Append <strong>+g</strong> to do a system call to gdal_translate
+geotiff file. Append <strong>+g</strong> to do a system call to <em>gdal_translate</em>
 and create a geoTIFF image right away. The output file will have a
 .tiff extension.</p>
 <p>The world file naming follows the convention of jamming a ‘w’ in the
@@ -382,7 +386,7 @@ argument in single-quotes (or vice versa).</p>
 <strong>psconvert</strong> can create a georeferenced raster image with a world
 file OR uses GDAL to convert the GMT PostScript file to geotiff.
 GDAL uses <a class="reference external" href="https://proj.org/">PROJ</a> for its projection library. To provide with the
-information it needs to do the georeferencing, GMT 4.5 embeds a
+information it needs to do the georeferencing, GMT embeds a
 comment near the start of the PostScript file defining the
 projection using <strong>PROJ</strong> syntax. Users with pre-GMT v4.5 PostScript
 files, or even non-GMT ps files, can provide the information
@@ -410,7 +414,7 @@ The input file(s) will <strong>not</strong> be removed in case of failures.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -528,7 +532,7 @@ fine-tune the result. Use <strong>-S</strong> to examine the actual command used
 add custom options via one or more instances of the <strong>-C</strong> option. For
 instance, to turn on image interpolation for all images, improving image
 quality for scaled images at the expense of speed, use
-<strong>-C</strong>-dDOINTERPOLATE. See www.ghostscript.com for complete
+<strong>-C</strong>-dDOINTERPOLATE. See <a class="reference external" href="https://www.ghostscript.com/">https://www.ghostscript.com/</a> for complete
 documentation.</p>
 </section>
 <section id="making-kmz-files">
@@ -564,8 +568,8 @@ use it.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on Mar 30, 2022.
       </span></p>
   </div>
 

@@ -145,7 +145,7 @@ Optional Arguments
 
 **-W**\ *n\_try*
     Get *n\_try* bootstrap estimates of the maximum CVA location; the
-    longitude and latitude results are written to stdout [Default is no
+    longitude and latitude results are written to standard output [Default is no
     bootstrapping]. Cannot be used with **-M**.
 
 .. _-Z:
@@ -204,4 +204,4 @@ Wessel, P., 1999, "Hotspotting" tools released, EOS Trans. AGU, 80 (29), p. 319.
 
 Wessel, P., 2008, Hotspotting: Principles and properties of a plate
 tectonic Hough transform, Geochem. Geophys. Geosyst. 9(Q08004):
-doi:10.1029/2008GC002058.
+https://doi.org/10.1029/2008GC002058.

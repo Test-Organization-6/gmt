@@ -101,14 +101,14 @@ Required Arguments
 **-G**\ *grdfile*
     Name of resulting output file. (1) If options **-R**, **-I**, and
     possibly **-r** are set we produce an equidistant output table. This
-    will be written to stdout unless **-G** is specified. **Note**: For 2-D
+    will be written to standard output unless **-G** is specified. **Note**: For 2-D
     grids the **-G** option is required. (2) If option **-T** is
     selected then **-G** is required and the output file is a 2-D binary
     grid file. Applies to 2-D interpolation only. (3) For 3-D cubes
     the **-G** option is optional.  If set, it can be the name of a 3-D
     cube file or a filename template with a floating-point C-format identifier
     in it so that each layer is written to a 2-D grid file; otherwise
-    we write (*x, y, z, w*) records to stdout. (4) If **-N** is
+    we write (*x, y, z, w*) records to standard output. (4) If **-N** is
     selected then the output is an ASCII (or binary; see
     **-bo**) table; if **-G** is not given then
     this table is written to standard output. Ignored if **-C** or
@@ -201,7 +201,7 @@ Optional Arguments
 **-N**\ *nodefile*
     ASCII file with coordinates of desired output locations **x** in the
     first column(s). The resulting *w* values are appended to each
-    record and written to the file given in **-G** [or stdout if not
+    record and written to the file given in **-G** [or standard output if not
     specified]; see **-bo** for binary output
     instead. This option eliminates the need to specify options **-R**,
     **-I**, and **-r**.
@@ -504,14 +504,15 @@ Sandwell, D. T., 1987, Biharmonic spline interpolation of Geos-3 and
 Seasat altimeter data, *Geophys. Res. Lett.*, **14**, 139-142.
 
 Wessel, P., and D. Bercovici, 1998, Interpolation with splines in
-tension: a Green's function approach, *Math. Geol.*, **30**, 77-93.
+tension: a Green's function approach, *Math. Geol.*, **30**, 77-93,
+https://doi.org/10.1023/A:1021713421882.
 
 Wessel, P., and J. M. Becker, 2008, Interpolation using a generalized
 Green's function for a spherical surface spline in tension, *Geophys. J.
-Int*, **174**, 21-28.
+Int*, **174**, 21-28, https://doi.org/10.1111/j.1365-246X.2008.03829.x.
 
 Wessel, P., 2009, A general-purpose Green's function interpolator,
-*Computers & Geosciences*, **35**, 1247-1254, doi:10.1016/j.cageo.2008.08.012.
+*Computers & Geosciences*, **35**, 1247-1254, https://doi.org/10.1016/j.cageo.2008.08.012.
 
 See Also
 --------

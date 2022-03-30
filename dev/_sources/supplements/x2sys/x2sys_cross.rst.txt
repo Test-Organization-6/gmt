@@ -15,6 +15,7 @@ Synopsis
 **gmt x2sys_cross** *track(s)* |-T|\ *TAG* [ |-A|\ *pairs* ]
 [ |-C|\ [*runtimes*] ]
 [ |-D|\ [**S**\|\ **N**] ]
+[ |-E|\ *limit* ]
 [ |-I|\ **l**\|\ **a**\|\ **c** ]
 [ |-Q|\ **e**\|\ **i** ]
 [ |-S|\ **l**\|\ **u**\|\ **h**\ *speed* ]
@@ -77,6 +78,12 @@ Optional Arguments
     for the south or north pole, respectively.  The conversion is used because the
     algorithm used to find crossovers are inherently a Cartesian algorithm that can
     run into trouble with data that has large longitudinal range at higher latitudes.
+
+.. _-E:
+
+**-E**\ *limit*
+    Exclude crossovers from acutely intersecting tracks where the difference in track
+    orientations is less than *limit* degrees [0].
 
 .. _-I:
 
@@ -197,10 +204,10 @@ References
 ----------
 
 Wessel, P. (2010), Tools for analyzing intersecting tracks: the x2sys
-package. *Computers and Geosciences*, **36**, 348-354.
+package. *Computers and Geosciences*, **36**, 348-354, https://doi.org/10.1016/j.cageo.2009.05.009.
 
 Wessel, P. (1989), XOVER: A cross-over error detector for track data,
-*Computers and Geosciences*, **15**\ (3), 333-346.
+*Computers and Geosciences*, **15**\ (3), 333-346, https://doi.org/10.1016/0098-3004(89)90044-7.
 
 See Also
 --------

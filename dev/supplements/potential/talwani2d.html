@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>talwani2d &mdash; GMT 6.3.0 documentation</title>
+  <title>talwani2d &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
@@ -23,9 +23,12 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/togglebutton.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -48,7 +51,7 @@
             <a href="../../index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -152,10 +156,10 @@
 [ <a class="reference internal" href="#m"><span><strong>-M</strong></span></a></strong>[<strong>h</strong>][<strong>v</strong>] ]
 [ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><em>trackfile</em> ]
 [ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><em>min</em>/<em>max</em>/<em>inc</em>[<strong>+i</strong>|<strong>n</strong>]|<em>file</em>|<em>list</em> ]
-[ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>level</em>[<em>ymin</em>/<em>ymax</em>] ]
+[ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>level</em>[/<em>ymin</em>/<em>ymax</em>] ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <strong>-bi</strong><a class="reference internal" href="../../gmt.html#bi-full"><span class="std std-ref">binary</span></a> ]
-[ <strong>-d</strong>[<strong>+c</strong><em>col</em>]<a class="reference internal" href="../../gmt.html#d-full"><span class="std std-ref">nodata</span></a> ]
+[ <strong>-d</strong><a class="reference internal" href="../../gmt.html#d-full"><span class="std std-ref">nodata</span></a>[<strong>+c</strong><em>col</em>] ]
 [ <strong>-e</strong><a class="reference internal" href="../../gmt.html#e-full"><span class="std std-ref">regexp</span></a> ]
 [ <strong>-h</strong><a class="reference internal" href="../../gmt.html#h-full"><span class="std std-ref">headers</span></a> ]
 [ <strong>-i</strong><a class="reference internal" href="../../gmt.html#icols-full"><span class="std std-ref">flags</span></a> ]
@@ -182,8 +186,8 @@ Options are available to control axes units and direction.</p>
 <dt><em>table</em></dt><dd><p>One or more ASCII files describing cross-sectional polygons of one or more bodies.  Polygons
 will be automatically closed if not already closed, and repeated vertices will
 be eliminated.  The segment header for each body will be examined for a density
-parameter in kg/m^3; see <strong>-D</strong> for overriding this value.  If no <em>table</em> is given then we
-read standard input.</p>
+parameter in kg/m^3 or g/cm^3; see <strong>-D</strong> for overriding this value.  If no <em>table</em> is
+given then we read standard input.</p>
 </dd>
 </dl>
 </section>
@@ -194,7 +198,7 @@ read standard input.</p>
 </dd>
 </dl>
 <dl class="simple" id="d">
-<dt><strong>-D</strong><em>density</em></dt><dd><p>Sets a fixed density contrast that overrides any per-body settings in the model file, in kg/m^3.</p>
+<dt><strong>-D</strong><em>density</em></dt><dd><p>Sets a fixed density contrast that overrides any per-body settings in the model file, in kg/m^3 or g/cm^3.</p>
 </dd>
 </dl>
 <dl class="simple" id="f">
@@ -224,7 +228,7 @@ For details on array creation, see <a class="reference internal" href="#generate
 </dd>
 </dl>
 <dl class="simple" id="z">
-<dt><strong>-Z</strong><em>level</em>[<em>ymin</em>/<em>ymax</em>]</dt><dd><p>Set a constant observation level [0].  Optionally, and for gravity anomalies only (<strong>-Ff</strong>),
+<dt><strong>-Z</strong><em>level</em>[/<em>ymin</em>/<em>ymax</em>]</dt><dd><p>Set a constant observation level [0].  Optionally, and for gravity anomalies only (<strong>-Ff</strong>),
 append the finite extent limits of a 2.5-D body.</p>
 </dd>
 </dl>
@@ -261,7 +265,7 @@ append the finite extent limits of a 2.5-D body.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -275,7 +279,7 @@ any module-specific option (but not the GMT common options), then exit.</p>
 <section id="units">
 <h2>Units<a class="headerlink" href="#units" title="Permalink to this headline">¶</a></h2>
 <p>For map distance unit, append <em>unit</em> <strong>d</strong> for arc degree, <strong>m</strong> for arc
-minute, and <strong>s</strong> for arc second, or <strong>e</strong> for meter [Default], <strong>f</strong>
+minute, and <strong>s</strong> for arc second, or <strong>e</strong> for meter [Default unless stated otherwise], <strong>f</strong>
 for foot, <strong>k</strong> for km, <strong>M</strong> for statute mile, <strong>n</strong> for nautical mile,
 and <strong>u</strong> for US survey foot. By default we compute such distances using
 a spherical approximation with great circles (<strong>-jg</strong>) using the authalic radius
@@ -423,7 +427,7 @@ can use <a class="reference internal" href="../../gmtmath.html"><span class="doc
 <em>J. Geophys. Res., 84(B8)</em>, 3793-3801.</p>
 <p>Kim, S.-S., and P. Wessel, 2016, New analytic solutions for modeling vertical
 gravity gradient anomalies, <em>Geochem. Geophys. Geosyst., 17</em>,
-<a class="reference external" href="http://dx.doi.org/10.1002/2016GC006263">http://dx.doi.org/10.1002/2016GC006263</a>.</p>
+<a class="reference external" href="https://dx.doi.org/10.1002/2016GC006263">https://dx.doi.org/10.1002/2016GC006263</a>.</p>
 <p>Talwani, M., J. L. Worzel, and M. Landisman, 1959, Rapid gravity computations for
 two-dimensional bodies with application to the Mendocino submarine fracture zone,
 <em>J. Geophys. Res., 64</em>, 49-59.</p>
@@ -450,8 +454,8 @@ two-dimensional bodies with application to the Mendocino submarine fracture zone
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on Mar 30, 2022.
       </span></p>
   </div>
 

@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pstext &mdash; GMT 6.3.0 documentation</title>
+  <title>pstext &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -182,27 +186,65 @@
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p><strong>text</strong> plots text strings of variable size, font type, and
 orientation. Various map projections are provided, with the option to
-draw and annotate the map boundaries. Greek characters, subscript, superscript, and small
-caps are supported as follows: The sequence &#64;~ toggles between the
-selected font and Greek (Symbol). &#64;%<em>font</em>% switches to <em>font</em> where
-<em>font</em> can either be a font <em>number</em> or <em>name</em> (see <strong>-L</strong>); &#64;%%
-resets the font to the starting font, &#64;- toggles subscripts on/off, &#64;+
-toggles superscript on/off, &#64;# toggles small caps on/off, &#64;;<em>color</em>;
-changes the font color (&#64;;; resets it), &#64;:<em>size</em>: changes the font
-size (&#64;:: resets it), and &#64;_ toggles underline on/off. &#64;&#64; prints the &#64;
-sign while &#64;. prints the degree symbol. &#64;a, &#64;c, &#64;e, &#64;i, &#64;n, &#64;o, &#64;s, &#64;u, &#64;A, &#64;C, &#64;E, &#64;N, &#64;O, and &#64;U
-give various accented European characters, as indicated in Table <a class="reference internal" href="cookbook/features.html#tbl-shorthand"><span class="std std-ref">escape</span></a>.
-Composite characters (overstrike) may be indicated with the
-&#64;!&lt;char1&gt;&lt;char2&gt; sequence, which will print the two characters on top of
-each other. To learn the octal codes for symbols not available on the
+draw and annotate the map boundaries.</p>
+<p>Greek characters, subscript, superscript, and small
+caps are supported as follows:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&#64;~</p></td>
+<td><p>Toggles between the selected font and Greek (Symbol)</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;%<em>font</em>%</p></td>
+<td><p>Switches to <em>font</em> where <em>font</em> can either be a font <em>number</em> or <em>name</em> (see <a class="reference internal" href="#l"><span><strong>-L</strong></span></a></strong>) (&#64;%% resets it)</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;-</p></td>
+<td><p>Toggles subscripts on/off</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;+</p></td>
+<td><p>Toggles superscript on/off</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;#</p></td>
+<td><p>Toggles small caps on/off</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;;<em>color</em></p></td>
+<td><p>Changes the font color (&#64;;; resets it)</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;:<em>size</em></p></td>
+<td><p>Changes the font size (&#64;:: resets it)</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;_</p></td>
+<td><p>Toggles underline on/off</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;&#64;</p></td>
+<td><p>Prints the &#64; sign</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;.</p></td>
+<td><p>Prints the degree symbol</p></td>
+</tr>
+</tbody>
+</table>
+<p>&#64;a, &#64;c, &#64;e, &#64;i, &#64;n, &#64;o, &#64;s, &#64;u, &#64;A, &#64;C, &#64;E, &#64;N, &#64;O, and &#64;U give various accented European
+characters, as indicated in Table <a class="reference internal" href="cookbook/features.html#tbl-shorthand"><span class="std std-ref">escape</span></a>. Composite characters
+(overstrike) may be indicated with the &#64;!&lt;char1&gt;&lt;char2&gt; sequence, which will print the
+two characters on top of each other.</p>
+<p>To learn the octal codes for symbols not available on the
 keyboard and some accented European characters, see Section <a class="reference internal" href="cookbook/features.html#char-esc-seq"><span class="std std-ref">Character escape sequences</span></a> and
 Appendix <a class="reference internal" href="cookbook/octal-codes.html#chart-octal-codes-for-chars"><span class="std std-ref">Chart of Octal Codes for Characters</span></a> in the GMT Technical Reference and Cookbook. Note that
 <a class="reference internal" href="gmt.conf.html#term-PS_CHAR_ENCODING"><span class="xref std std-term">PS_CHAR_ENCODING</span></a> must be set to an extended character set in your
-<a class="reference internal" href="gmt.conf.html"><span class="doc">gmt.conf</span></a> file in order to use the accented characters. Using the
-<strong>-G</strong> or <strong>-W</strong> options, a rectangle underlying the text may be plotted
+<a class="reference internal" href="gmt.conf.html"><span class="doc">gmt.conf</span></a> file in order to use the accented characters.</p>
+<p>Using the <strong>-G</strong> or <strong>-W</strong> options, a rectangle underlying the text may be plotted
 (does not work for strings with sub/super scripts, symbols, or composite
-characters, except in paragraph mode (<strong>-M</strong>)).  Finally, you may typeset
-LaTeX expressions provided they are enclosed in &#64;[ … &#64;[ or &lt;math&gt; … &lt;/math&gt;;
+characters, except in paragraph mode (<strong>-M</strong>)).</p>
+<p>Finally, you may typeset LaTeX expressions provided they are enclosed in &#64;[ … &#64;[ or &lt;math&gt; … &lt;/math&gt;;
 see Chapter <a class="reference internal" href="cookbook/gmt-latex.html"><span class="doc">Using LaTeX Expressions in GMT</span></a> for more details.</p>
 </section>
 <section id="required-arguments">
@@ -410,7 +452,7 @@ the word order, with the first word being 0.  No numerical columns can be specif
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-qi</strong>[~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#qi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input rows or data limit(s) [default is all rows].</p>
+<dt><strong>-qi</strong>[~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>t</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#qi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input rows or data limit(s) [default is all rows].</p>
 </dd>
 </dl>
 <dl class="simple" id="tv-full">
@@ -435,7 +477,7 @@ interpret it to mean <strong>-t+f</strong> for fill transparency only.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -566,8 +608,8 @@ trailing text.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on Mar 30, 2022.
       </span></p>
   </div>
 

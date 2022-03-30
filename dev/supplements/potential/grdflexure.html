@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>grdflexure &mdash; GMT 6.3.0 documentation</title>
+  <title>grdflexure &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
@@ -23,16 +23,19 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/togglebutton.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="grdgravmag3d" href="grdgravmag3d.html" />
-    <link rel="prev" title="gravfft" href="gravfft.html" />
+    <link rel="prev" title="gravprisms" href="gravprisms.html" />
 
 
   <!-- Point to the *latest* version switcher. This will allow the latest versions to appear on older documentation. -->
@@ -49,7 +52,7 @@
             <a href="../../index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -65,6 +68,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -154,6 +158,7 @@
 [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong><em>Nx</em>/<em>Ny</em>/<em>Nxy</em> ]
 [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><strong>p</strong>|<strong>y</strong><em>value</em> ]
 [ <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong><em>nu_a</em>[/<em>h_a</em>[<strong>k</strong>]/<em>nu_m</em>] ]
+[ <a class="reference internal" href="#h"><span><strong>-H</strong></span></a></strong><em>rhogrid</em>
 [ <a class="reference internal" href="#l"><span><strong>-L</strong></span></a></strong><em>list</em> ]
 [ <a class="reference internal" href="#m"><span><strong>-M</strong></span></a></strong><em>tm</em> ]
 [ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><em>params</em> ]
@@ -199,7 +204,9 @@ will be set and loaded for each time step.  The load times thus
 coincide with the times given via <strong>-T</strong> (but not all times need
 to have a corresponding file).  Alternatively, give <em>topogrd</em> as
 =<em>flist</em>, where <em>flist</em> is an ASCII table with one <em>topogrd</em> filename
-and load time per record.  These load times can be different from
+and load time per record (e.g., as produced by
+<a class="reference internal" href="grdseamount.html"><span class="doc">grdseamount</span></a> <strong>-M</strong>).
+These load times can be different from
 the evaluation times given via <strong>-T</strong>.  For load time format, see
 <strong>-T</strong>. <strong>Note</strong>: If <em>flist</em> has an optional third column it will be
 interpreted as a load density and used for that layer instead of
@@ -220,7 +227,7 @@ modulus, and Poisson’s ratio; see <strong>-C</strong> to change these values).
 If just <strong>-E</strong> is given and <strong>-F</strong> is used it means no plate is given
 and we will return a purely viscous response with or without an asthenospheric layer.
 Select a general linear viscoelastic response by supplying both an initial and
-final elastic thickness; this response also requires <strong>-M</strong>.</p>
+final elastic thickness <em>Te2</em>; this response also requires <strong>-M</strong>.</p>
 </dd>
 </dl>
 <span class="target" id="g"></span><p><strong>-G</strong><em>outgrid</em>[=<em>ID</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
@@ -278,6 +285,14 @@ viscosity (<em>nu_m</em>), with the first viscosity now being that of
 the asthenosphere. Give viscosities in Pa·s. If used, give the
 thickness of the asthenosphere in meter; append <strong>k</strong> for km.
 Cannot be used in conjunctions with <strong>-M</strong>.</p>
+</dd>
+</dl>
+<dl class="simple" id="h">
+<dt><strong>-H</strong><em>rhogrid</em></dt><dd><p>Supply optional variable load density grid.  It can be a single
+grid or a grid name template, i.e., same as for <em>topogrd</em>. Requires
+<em>rho_l</em> be set to - in <strong>-D</strong>.  <strong>Note</strong>: If <em>topogrd</em> is given as
+a list file then the optional density grids must be given as part of
+the list and not via <strong>-H</strong>.</p>
 </dd>
 </dl>
 <dl class="simple" id="l">
@@ -381,7 +396,7 @@ meters via a “Flat Earth” approximation using the current ellipsoid paramete
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -559,20 +574,20 @@ and elastic response functions (<span class="math notranslate nohighlight">\(\Ph
 <p>Karner, G. D., 1982, Spectral representation of isostatic models, <em>BMR J. Australian Geology &amp; Geophysics, 7</em>, 55-62.</p>
 <p>Nakada, M., 1986, Holocene sea levels in oceanic islands: Implications for the rheological
 structure of the Earth’s mantle, <em>Tectonophysics, 121</em>, 263–276,
-<a class="reference external" href="http://dx.doi.org/10.1016/0040-1951(86)90047-8">http://dx.doi.org/10.1016/0040-1951(86)90047-8</a>.</p>
+<a class="reference external" href="https://dx.doi.org/10.1016/0040-1951(86)90047-8">https://dx.doi.org/10.1016/0040-1951(86)90047-8</a>.</p>
 <p>Watts, A. B., 2001, <em>Isostasy and Flexure of the Lithosphere</em>, 458 pp., Cambridge University Press.</p>
 <p>Wessel. P., 2001, Global distribution of seamounts inferred from gridded Geosat/ERS-1 altimetry,
 J. Geophys. Res., 106(B9), 19,431-19,441,
-<a class="reference external" href="http://dx.doi.org/10.1029/2000JB000083">http://dx.doi.org/10.1029/2000JB000083</a>.</p>
+<a class="reference external" href="https://dx.doi.org/10.1029/2000JB000083">https://dx.doi.org/10.1029/2000JB000083</a>.</p>
 <p>Wessel, P., 2016, Regional–residual separation of bathymetry and revised estimates of Hawaii plume flux,
-<em>Geophys. J. Int., 204(2)</em>, 932-947, <a class="reference external" href="http://dx.doi.org/10.1093/gji/ggv472">http://dx.doi.org/10.1093/gji/ggv472</a>.</p>
+<em>Geophys. J. Int., 204(2)</em>, 932-947, <a class="reference external" href="https://dx.doi.org/10.1093/gji/ggv472">https://dx.doi.org/10.1093/gji/ggv472</a>.</p>
 </section>
 <section id="see-also">
 <h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="../../gmt.html"><span class="doc">gmt</span></a>,
 <a class="reference internal" href="gmtflexure.html"><span class="doc">gmtflexure</span></a>,
 <a class="reference internal" href="../../grdfft.html"><span class="doc">grdfft</span></a>,
-<a class="reference internal" href="gravfft.html"><span class="doc">gravfft</span></a>
+<a class="reference internal" href="gravfft.html"><span class="doc">gravfft</span></a>,
 <a class="reference internal" href="../../grdmath.html"><span class="doc">grdmath</span></a>, <a class="reference internal" href="../../grdproject.html"><span class="doc">grdproject</span></a>,
 <a class="reference internal" href="grdseamount.html"><span class="doc">grdseamount</span></a></p>
 </section>
@@ -582,15 +597,15 @@ J. Geophys. Res., 106(B9), 19,431-19,441,
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="gravfft.html" class="btn btn-neutral float-left" title="gravfft" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gravprisms.html" class="btn btn-neutral float-left" title="gravprisms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="grdgravmag3d.html" class="btn btn-neutral float-right" title="grdgravmag3d" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on Mar 30, 2022.
       </span></p>
   </div>
 

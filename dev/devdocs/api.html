@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GMT C API &mdash; GMT 6.3.0 documentation</title>
+  <title>GMT C API &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
@@ -23,9 +23,12 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/togglebutton.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -48,7 +51,7 @@
             <a href="../index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -620,10 +624,9 @@ GMT grids expect this type of variable.</p>
     <span class="kt">char</span>   <span class="n">command</span><span class="p">[</span><span class="n">GMT_GRID_COMMAND_LEN320</span><span class="p">];</span><span class="cm">/* Name of generating command */</span>
     <span class="kt">char</span>   <span class="n">remark</span><span class="p">[</span><span class="n">GMT_GRID_REMARK_LEN160</span><span class="p">];</span>  <span class="cm">/* Comments regarding this data set */</span>
 <span class="p">};</span>
-
-<span class="n">The</span> <span class="n">basic</span> <span class="n">grid</span> <span class="n">header</span> <span class="n">holds</span> <span class="n">the</span> <span class="n">metadata</span> <span class="n">written</span> <span class="n">to</span> <span class="n">grid</span> <span class="n">files</span><span class="p">.</span>
 </pre></div>
 </div>
+<p>The basic grid header holds the metadata written to grid files.</p>
 </section>
 <section id="gmt-images">
 <h4>GMT images<a class="headerlink" href="#gmt-images" title="Permalink to this headline">¶</a></h4>
@@ -2970,18 +2973,24 @@ API or GMT default settings you can do so via</p>
 <p>where <code class="docutils literal notranslate"><span class="pre">keyword</span></code> is one such keyword (e.g., <a class="reference internal" href="../gmt.conf.html#term-PROJ_LENGTH_UNIT"><span class="xref std std-term">PROJ_LENGTH_UNIT</span></a>) and
 <code class="docutils literal notranslate"><span class="pre">value</span></code> must be a character string long enough to hold the answer.  In
 addition to the long list of GMT defaults you can also inquire about the
-API parameters <code class="docutils literal notranslate"><span class="pre">API_PAD</span></code> (the current pad setting), <code class="docutils literal notranslate"><span class="pre">API_IMAGE_LAYOUT</span></code> (the
-order and structure of image memory storage), <code class="docutils literal notranslate"><span class="pre">API_GRID_LAYOUT</span></code> (order of
-grid memory storage), <code class="docutils literal notranslate"><span class="pre">API_VERSION</span></code> (the API version string),
-<code class="docutils literal notranslate"><span class="pre">API_CORES</span></code> (the number of cores seen by the API),
-<code class="docutils literal notranslate"><span class="pre">API_BINDIR</span></code> (the API (GMT) executable path),
-<code class="docutils literal notranslate"><span class="pre">API_SHAREDIR</span></code> (the API (GMT) shared directory path),
-<code class="docutils literal notranslate"><span class="pre">API_DATADIR</span></code> (the API (GMT) data directory path), and
-<code class="docutils literal notranslate"><span class="pre">API_PLUGINDIR</span></code> (the API (GMT) plugin path).
-Depending on what parameter you selected you could further convert it to
+following API parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">API_PAD</span></code> - the current pad setting</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_IMAGE_LAYOUT</span></code> - the order and structure of image memory storage</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_GRID_LAYOUT</span></code> - order of grid memory storage</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_VERSION</span></code> - the API version string</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_CORES</span></code> - the number of cores seen by the API</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_BINDIR</span></code> - the API (GMT) executable path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_SHAREDIR</span></code> - the API (GMT) shared directory path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_DATADIR</span></code> - the API (GMT) data directory path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_PLUGINDIR</span></code> - the API (GMT) plugin path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_BIN_VERSION</span></code> - the API version string with Git commit information</p></li>
+</ul>
+</div></blockquote>
+<p>Depending on what parameter you selected you could further convert it to
 a numerical value with <a class="reference internal" href="#gmt-get-values">GMT_Get_Values</a> or just use it in a text comparison.</p>
-<p>To change any of the API or
-GMT default settings programmatically you would use</p>
+<p>To change any of the API or GMT default settings programmatically you would use</p>
 <blockquote id="gmt-set-default">
 <div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">GMT_Set_Default</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">API</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">keyword</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">value</span><span class="p">);</span>
 </pre></div>
@@ -4170,8 +4179,8 @@ own threads.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on Mar 30, 2022.
       </span></p>
   </div>
 

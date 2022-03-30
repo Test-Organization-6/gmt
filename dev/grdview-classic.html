@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>grdview &mdash; GMT 6.3.0 documentation</title>
+  <title>grdview &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -243,10 +247,13 @@ If we should derive intensities from another file than <em>reliefgrid</em>, spec
 </dd>
 </dl>
 <dl class="simple" id="n">
-<dt><strong>-N</strong><em>level</em>[<strong>+g</strong><em>fill</em>]</dt><dd><p>Draws a plane at this z-level. If the optional <em>color</em> is provided
+<dt><strong>-N</strong>[<em>level</em>][<strong>+g</strong><em>fill</em>]</dt><dd><p>Draws a plane at this z-level. If the optional <em>color</em> is provided
 via the <strong>+g</strong> modifier, and the projection is not oblique,
 the frontal facade between the plane and the data perimeter is
-colored. See <strong>-Wf</strong> for setting the pen used for the outline.</p>
+colored. See <strong>-Wf</strong> for setting the pen used for the outline.
+If no <em>level</em> is set then we default to the minimum value in the
+<em>reliefgrid</em>. However, if <strong>-R</strong> was used to set <em>zmin/zmax</em> then we
+use that value if it is less than the grid minimum value.</p>
 </dd>
 </dl>
 <dl id="q">
@@ -340,7 +347,7 @@ for the facade outline to be drawn.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -364,7 +371,8 @@ map areas may show up with fore- or background color due to the resampling.
 In that case you have two options: (1) Modify your CPT to fit the resampled
 extrema (reported with <strong>-V</strong>) or (2) Impose clipping of resampled values
 so they do not exceed the input min/max values (add <strong>+c</strong> to your <strong>-n</strong>
-option).</p>
+option). <strong>Note</strong>: If <strong>-n</strong> is not set and no CPT is given (or a master
+CPT is given or implied), we automatically set <strong>-nc+c</strong>.</p>
 </section>
 <section id="classic-mode-arguments">
 <h2>Classic Mode Arguments<a class="headerlink" href="#classic-mode-arguments" title="Permalink to this headline">¶</a></h2>
@@ -439,6 +447,16 @@ this produces huge PostScript files. The alternative is to use the
 <strong>-Qi</strong> option, which computes bilinear or bicubic continuous color
 variations within polygons by using scanline conversion to image the polygons.</p>
 </section>
+<section id="macos-preview-warning">
+<h2>MacOS Preview Warning<a class="headerlink" href="#macos-preview-warning" title="Permalink to this headline">¶</a></h2>
+<p>Low-resolution raster-images appearing in PDF or PostScript files may look blurry when viewed
+with the Preview application under macOS. This happens because Preview decides to resample very
+coarse (low dpi) images instead of leaving them alone; we do not know of a simple way to turn
+this feature off.  It is most noticeable in color bars for discrete CPTs (we now use <strong>-Np</strong> as
+the default setting for such CPTs) and very small grids plotted in either <a class="reference internal" href="grdimage.html"><span class="doc">grdimage</span></a> or
+<a class="reference internal" href="grdview.html"><span class="doc">grdview</span></a> <strong>-Qi</strong>|<strong>c</strong>. However, if a raster format (such as JPG or PNG) is selected instead
+then here is no such blurring.  Other PDF viewers (e.g., Adobe Acrobat) do not seem similarly affected.</p>
+</section>
 <section id="see-also">
 <h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="gmt.html"><span class="doc">gmt</span></a>,
@@ -464,8 +482,8 @@ variations within polygons by using scanline conversion to image the polygons.</
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on Mar 30, 2022.
       </span></p>
   </div>
 

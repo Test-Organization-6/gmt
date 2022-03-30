@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>grdgradient &mdash; GMT 6.3.0 documentation</title>
+  <title>grdgradient &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
@@ -23,11 +23,14 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -49,7 +52,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -65,6 +68,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -161,8 +165,8 @@
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p><strong>grdgradient</strong> may be used to compute the directional derivative in a
-given direction (<a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>), or to find the direction (<a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong>) [and the magnitude
-(<a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong>)] of the vector gradient of the data.</p>
+given direction (<a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>), or to find the direction (<a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong>) [and the magnitude
+(<a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong>)] of the vector gradient of the data.</p>
 <p>Estimated values in the first/last row/column of output depend on
 boundary conditions (see <strong>-n</strong>).</p>
 </section>
@@ -221,12 +225,12 @@ for more details.</p>
 angle in the x,y plane measured in degrees positive clockwise from
 north (the +y direction) toward east (the +x direction). The
 negative of the directional derivative,
-<span class="math notranslate nohighlight">\(-(\frac{dz}{dx}\sin(\mbox{azim}) + \frac{dz}{dy}\cos(\mbox{azim}))\)</span>
-, is found; negation yields positive values
-when the slope of <span class="math notranslate nohighlight">\(z(x,y)\)</span> is downhill in the <em>azim</em> direction, the
+<span class="math notranslate nohighlight">\(-(\frac{dz}{dx}\sin(a) + \frac{dz}{dy}\cos(a))\)</span>
+, is found where <span class="math notranslate nohighlight">\(a\)</span> is the <em>azimuth</em>; negation yields positive values
+when the slope of <span class="math notranslate nohighlight">\(z(x,y)\)</span> is downhill in the <span class="math notranslate nohighlight">\(a\)</span> direction, the
 correct sense for shading the illumination of an image (see
 <a class="reference internal" href="grdimage.html"><span class="doc">grdimage</span></a> and <a class="reference internal" href="grdview.html"><span class="doc">grdview</span></a>) by a light source above the x,y plane
-shining from the <em>azim</em> direction. Optionally, supply two azimuths,
+shining from the <span class="math notranslate nohighlight">\(a\)</span> direction. Optionally, supply two azimuths,
 <strong>-A</strong><em>azim</em>/<em>azim2</em>, in which case the gradients in each of these
 directions are calculated and the one larger in magnitude is
 retained; this is useful for illuminating data with two directions
@@ -238,7 +242,8 @@ directional derivatives.</p>
 </dd>
 </dl>
 <dl class="simple" id="d">
-<dt><strong>-D</strong>[<strong>a</strong>][<strong>c</strong>][<strong>o</strong>][<strong>n</strong>]</dt><dd><p>Find the direction of the positive (up-slope) gradient of the data. The
+<dt><strong>-D</strong>[<strong>a</strong>][<strong>c</strong>][<strong>o</strong>][<strong>n</strong>]</dt><dd><p>Instead of finding the gradient in a given direction (<a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>), find the
+direction of the positive (up-slope) gradient of the data. The
 following modifiers are supported:</p>
 <ul class="simple">
 <li><p><strong>a</strong> - Find the aspect (i.e., the down-slope direction).</p></li>
@@ -273,19 +278,20 @@ they will be ignored.)</p>
 are offset and scaled to produce normalized gradients <span class="math notranslate nohighlight">\(g_n\)</span> with a
 maximum output magnitude of <em>amp</em>. If <em>amp</em> is not given, default
 <em>amp</em> = 1. If <em>offset</em> is not given, it is set to the average of
-<span class="math notranslate nohighlight">\(g\)</span>. The following forms are supported:</p>
+<span class="math notranslate nohighlight">\(g\)</span>. The following forms are supported, where <span class="math notranslate nohighlight">\(o\)</span> is the offset
+and <span class="math notranslate nohighlight">\(a\)</span> is the <em>amp</em>:</p>
 <ul class="simple">
-<li><p><strong>-N</strong> - Normalize using <span class="math notranslate nohighlight">\(g_n = \mbox{amp}(\frac{g - \mbox{offset}}{max(|g - \mbox{offset}|)})\)</span></p></li>
+<li><p><strong>-N</strong> - Normalize using <span class="math notranslate nohighlight">\(g_n = a(\frac{g - o}{max(|g - o|)})\)</span></p></li>
 <li><p><strong>-Ne</strong> - Normalize using a cumulative Laplace distribution yielding:
-<span class="math notranslate nohighlight">\(g_n = \mbox{amp}(1 - \exp{(\sqrt{2}\frac{g - \mbox{offset}}{\sigma}))}\)</span>, where
-<span class="math notranslate nohighlight">\(\sigma\)</span> is estimated using the L1 norm of <span class="math notranslate nohighlight">\((g - \mbox{offset})\)</span> if it is
+<span class="math notranslate nohighlight">\(g_n = a(1 - \exp{(\sqrt{2}\frac{g - o}{\sigma}))}\)</span>, where
+<span class="math notranslate nohighlight">\(\sigma\)</span> is estimated using the L1 norm of <span class="math notranslate nohighlight">\((g - o)\)</span> if it is
 not given.</p></li>
 <li><p><strong>-Nt</strong> - Normalize using a cumulative Cauchy distribution yielding:
-<span class="math notranslate nohighlight">\(g_n = \frac{2(\mbox{amp})}{\pi}(\tan^{-1}(\frac{g - \mbox{offset}}{\sigma}))\)</span> where
-<span class="math notranslate nohighlight">\(\sigma\)</span> is estimated using the L2 norm of <span class="math notranslate nohighlight">\((g - \mbox{offset})\)</span> if it
+<span class="math notranslate nohighlight">\(g_n = \frac{2a}{\pi}(\tan^{-1}(\frac{g - o}{\sigma}))\)</span> where
+<span class="math notranslate nohighlight">\(\sigma\)</span> is estimated using the L2 norm of <span class="math notranslate nohighlight">\((g -o)\)</span> if it
 is not given.</p></li>
 </ul>
-<p>To use <em>offset</em> and/or <span class="math notranslate nohighlight">\(\sigma\)</span> from a previous calculation,
+<p>To use <span class="math notranslate nohighlight">\(o\)</span> and/or <span class="math notranslate nohighlight">\(\sigma\)</span> from a previous calculation,
 leave out the argument to the modifier(s) and see <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> for usage.  As a final
 option, you may add <strong>+a</strong><em>ambient</em> to add <em>ambient</em> to all nodes after
 gradient calculations are completed.</p>
@@ -326,7 +332,7 @@ meters via a “Flat Earth” approximation using the current ellipsoid paramete
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -448,8 +454,8 @@ IEEE, Vol. 69, No. 1, January 1981, pp. 14-47.
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on Mar 30, 2022.
       </span></p>
   </div>
 

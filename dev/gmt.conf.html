@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>gmt.conf &mdash; GMT 6.3.0 documentation</title>
+  <title>gmt.conf &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -815,6 +819,10 @@ nothing specified). Note that this setting can be overridden via the
 map annotations. Choose between <strong>ring</strong>, <strong>degree</strong>, <strong>colon</strong>, or
 <strong>none</strong> [default is <strong>degree</strong>].</p>
 </dd>
+<dt id="term-MAP_EMBELLISHMENT_MODE"><strong>MAP_EMBELLISHMENT_MODE</strong><a class="headerlink" href="#term-MAP_EMBELLISHMENT_MODE" title="Permalink to this term">¶</a></dt><dd><p>Determines if map embellishments like directional or magnetic compasses,
+map scales or vertical data scales should have attributes that scale with
+the size of the feature (<strong>auto</strong>) or use the settings as is (<strong>manual</strong>).</p>
+</dd>
 <dt id="term-MAP_FRAME_AXES"><strong>MAP_FRAME_AXES</strong><a class="headerlink" href="#term-MAP_FRAME_AXES" title="Permalink to this term">¶</a></dt><dd><p>Sets which axes to draw and annotate. Combine any uppercase <strong>W</strong>,
 <strong>E</strong>, <strong>S</strong>, <strong>N</strong>, <strong>Z</strong> to draw and annotate west, east, south,
 north and/or vertical (perspective view only) axis. Use lower case
@@ -1489,8 +1497,8 @@ correspond to 1800 through 1828. [default is <strong>1950</strong>].</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on Mar 30, 2022.
       </span></p>
   </div>
 

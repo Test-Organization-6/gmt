@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>mapproject &mdash; GMT 6.3.0 documentation</title>
+  <title>mapproject &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -161,10 +165,10 @@
 [ <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong> ]
 [ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>[<strong>h</strong>]<em>from</em>[/<em>to</em>] ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
-[ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong>[<strong>g</strong>|<strong>h</strong>|<strong>j</strong>|<strong>n</strong>|<strong>r</strong>|<strong>R</strong>|<strong>w</strong>|<strong>x</strong>] ]
+[ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong>[<strong>g</strong>|<strong>h</strong>|<strong>j</strong>|<strong>n</strong>|<strong>o</strong>|<strong>O</strong>|<strong>r</strong>|<strong>R</strong>|<strong>w</strong>|<strong>x</strong>] ]
 [ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong>[<em>speed</em>][<strong>+a</strong>][<strong>+i</strong>][<strong>+f</strong>][<strong>+t</strong><em>epoch</em>] ]
 [ <strong>-b</strong><a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">binary</span></a> ]
-[ <strong>-d</strong>[<strong>+c</strong><em>col</em>]<a class="reference internal" href="gmt.html#d-full"><span class="std std-ref">nodata</span></a> ]
+[ <strong>-d</strong><a class="reference internal" href="gmt.html#d-full"><span class="std std-ref">nodata</span></a>[<strong>+c</strong><em>col</em>] ]
 [ <strong>-e</strong><a class="reference internal" href="gmt.html#e-full"><span class="std std-ref">regexp</span></a> ]
 [ <strong>-f</strong><a class="reference internal" href="gmt.html#f-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-g</strong><a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">gaps</span></a> ]
@@ -349,7 +353,7 @@ after the inverse projection). Make sure that the
 </dd>
 </dl>
 <dl class="simple" id="w">
-<dt><strong>-W</strong>[<strong>g</strong>|<strong>h</strong>|<strong>j</strong>|<strong>n</strong>|<strong>r</strong>|<strong>R</strong>|<strong>w</strong>|<strong>x</strong>]</dt><dd><p>Prints map width and height on standard output.  No input files are read.
+<dt><strong>-W</strong>[<strong>g</strong>|<strong>h</strong>|<strong>j</strong>|<strong>n</strong>|<strong>o</strong>|<strong>O</strong>|<strong>r</strong>|<strong>R</strong>|<strong>w</strong>|<strong>x</strong>]</dt><dd><p>Prints map width and height on standard output.  No input files are read.
 To only output the width or the height, append <strong>w</strong> or <strong>h</strong>, respectively.
 To output the plot coordinates of a map point, give <strong>g</strong><em>lon</em>/<em>lat</em>.
 The units of reported plot dimensions may be changed via <strong>-D</strong>.
@@ -358,8 +362,11 @@ standard two-character justification codes), <strong>n</strong><em>rx</em>/<em>r
 point is given as normalized positions in the 0-1 range, or <strong>x</strong><em>px</em>/<em>py</em>,
 where a plot point is given directly. To output the rectangular domain that
 covers an oblique area as defined by <strong>-R -J</strong>, append <strong>r</strong>,
-or use <strong>R</strong> to get the result in -Rw/e/s/n string format [Default returns
-the width and height of the map].</p>
+or use <strong>R</strong> to get the result in -Rw/e/s/n string format. Similarly, if an
+oblique domain is set via <strong>-R</strong><em>xmin/xmax/ymin/ymax</em><strong>+u</strong><em>unit</em> then
+use <strong>o</strong> to return the diagonal corner coordinates in degrees (in the order
+<em>llx urx lly ury</em>) or use <strong>O</strong> to get the equivalent <strong>-R</strong> string as trailing
+text [Default returns the width and height of the map].</p>
 </dd>
 </dl>
 <dl class="simple" id="z">
@@ -426,7 +433,7 @@ See <a class="reference internal" href="#output-order">Output Order</a> for how 
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data limit(s) [all].</p>
+<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>t</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data limit(s) [all].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -438,7 +445,7 @@ See <a class="reference internal" href="#output-order">Output Order</a> for how 
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -452,7 +459,7 @@ any module-specific option (but not the GMT common options), then exit.</p>
 <section id="units">
 <h2>Units<a class="headerlink" href="#units" title="Permalink to this headline">¶</a></h2>
 <p>For map distance unit, append <em>unit</em> <strong>d</strong> for arc degree, <strong>m</strong> for arc
-minute, and <strong>s</strong> for arc second, or <strong>e</strong> for meter [Default], <strong>f</strong>
+minute, and <strong>s</strong> for arc second, or <strong>e</strong> for meter [Default unless stated otherwise], <strong>f</strong>
 for foot, <strong>k</strong> for km, <strong>M</strong> for statute mile, <strong>n</strong> for nautical mile,
 and <strong>u</strong> for US survey foot. By default we compute such distances using
 a spherical approximation with great circles (<strong>-jg</strong>) using the authalic radius
@@ -542,6 +549,13 @@ for ISO elapsed time).</p>
 defined by an oblique Mercator projection, try</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt mapproject -R270/20/305/25+r -JOc280/25.5/22/69/2c -WR
+</pre></div>
+</div>
+</div></blockquote>
+<p>To determine the oblique region string (in degrees) that corresponds to a rectangular
+(but oblique) region specified in projected units defined by an oblique Mercator projection, try</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt mapproject -R-2800/2400/-570/630+uk -Joc190/25/266/68/1:1 -WO
 </pre></div>
 </div>
 </div></blockquote>
@@ -635,8 +649,8 @@ North-Holland Publ., ISBN: 0 444 86149 1.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on Mar 30, 2022.
       </span></p>
   </div>
 

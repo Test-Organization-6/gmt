@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>movie &mdash; GMT 6.3.0 documentation</title>
+  <title>movie &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -194,22 +198,71 @@ and we build hidden movie scripts using the same language.  Parameters that can 
 are discussed below.</p>
 </dd>
 </dl>
-<dl class="simple" id="c">
+<dl id="c">
 <dt><strong>-C</strong><em>canvassize</em></dt><dd><p>Specify the canvas size used when composing the movie frames. You can choose from a
-set of preset formats or specify a custom layout.  The named 16:9 ratio
-formats have a canvas dimension of 24 x 13.5 cm <em>or</em> 9.6 x 5.4 inch and are
-(with pixel dimensions given in parenthesis):
-<strong>4320p</strong> (7680 x 4320), <strong>2160p</strong> (3840 x 2160), <strong>1080p</strong> (1920 x 1080), <strong>720p</strong> (1280 x 720),
-<strong>540p</strong> (960 x 540), <strong>480p</strong> (854 x 480), <strong>360p</strong> (640 x 360), and <strong>240p</strong> (426 x 240).
-We also accept <strong>8k</strong> or <strong>uhd-2</strong> to mean <strong>4320p</strong>, <strong>4k</strong> or <strong>uhd</strong> to mean <strong>2160p</strong>, and <strong>hd</strong> to mean <strong>1080p</strong>.
-The recognized 4:3 ratio formats have a canvas dimension of 24 x 18 cm <em>or</em> 9.6 x 7.2 inch
-and are (with pixel dimensions given in parenthesis):
-<strong>uxga</strong> (1600 x 1200), <strong>sxga+</strong> (1400 x 1050), <strong>xga</strong> (1024 x 768),
-<strong>svga</strong> (800 x 600), and <strong>dvd</strong> (640 x 480).
+set of preset formats (see Table <a class="reference internal" href="#tbl-presets"><span class="std std-ref">Presets</span></a>) or specify a custom layout.
 <strong>Note</strong>: Your <a class="reference internal" href="gmt.conf.html#term-PROJ_LENGTH_UNIT"><span class="xref std std-term">PROJ_LENGTH_UNIT</span></a> setting determines if <strong>movie</strong> sets
 you up to work with the SI or US canvas dimensions.  Instead of a named format you can
 request a custom format directly by giving <em>width</em>x<em>height</em>x<em>dpu</em>,
 where <em>dpu</em> is the dots-per-unit pixel density (pixel density is set automatically for the named formats).</p>
+<table class="docutils align-default" id="tbl-presets">
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Preset format (alias)</p></th>
+<th class="head"><p>Pixel dimensions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em>16:9 (24x13.5 cm or 9.6x5.4 inch)</em></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>4320p (8k and uhd-2)</p></td>
+<td><p>7680 x 4320</p></td>
+</tr>
+<tr class="row-even"><td><p>2160p (4k and uhd)</p></td>
+<td><p>3840 x 2160</p></td>
+</tr>
+<tr class="row-odd"><td><p>1080p (hd)</p></td>
+<td><p>1920 x 1080</p></td>
+</tr>
+<tr class="row-even"><td><p>720p</p></td>
+<td><p>1280 x 720</p></td>
+</tr>
+<tr class="row-odd"><td><p>540p</p></td>
+<td><p>960 x 540</p></td>
+</tr>
+<tr class="row-even"><td><p>480p</p></td>
+<td><p>854 x 480</p></td>
+</tr>
+<tr class="row-odd"><td><p>360p</p></td>
+<td><p>640 x 360</p></td>
+</tr>
+<tr class="row-even"><td><p>240p</p></td>
+<td><p>426 x 240</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>4:3 (24x18 cm or 9.6x7.2 inch)</em></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>uxga</p></td>
+<td><p>1600 x 1200</p></td>
+</tr>
+<tr class="row-odd"><td><p>sxga+</p></td>
+<td><p>1400 x 1050</p></td>
+</tr>
+<tr class="row-even"><td><p>xga</p></td>
+<td><p>1024 x 768</p></td>
+</tr>
+<tr class="row-odd"><td><p>svga</p></td>
+<td><p>800 x 600</p></td>
+</tr>
+<tr class="row-even"><td><p>dvd</p></td>
+<td><p>640 x 480</p></td>
+</tr>
+</tbody>
+</table>
 </dd>
 </dl>
 <dl class="simple" id="n">
@@ -236,7 +289,7 @@ the numbering of the given frames.  Finally, <strong>+p</strong> can be used to 
 used in naming frames.  For instance, name_000010.png has a tag width of 6.  By default, this
 is automatically set but if you are splitting large jobs across several computers then you
 must use the same tag width for all names. <strong>Note</strong>: If just <em>nframes</em> is given then only <strong>MOVIE_FRAME</strong>
-is available as no data file is available.</p>
+is available as no data file is available.  For details on array creation, see <a class="reference internal" href="#generate-1d-array">Generate 1D Array</a>.</p>
 </dd>
 </dl>
 </section>
@@ -305,7 +358,8 @@ We fade from and to black by default; append <strong>+g</strong><em>fill</em> to
 </dd>
 </dl>
 <dl class="simple" id="l">
-<dt><strong>-L</strong><em>labelinfo</em>[<em>modifiers</em>]</dt><dd><p>Automatic labeling of individual frames.  Repeatable up to 32 labels.  Places the chosen label at the frame perimeter:
+<dt><strong>-L</strong><em>labelinfo</em>[<em>modifiers</em>]</dt><dd><p>Automatic labeling of individual frames [Default is running frame number (f)].
+Repeatable up to 32 labels.  Places the chosen label at the frame perimeter:
 <strong>e</strong> selects the elapsed time in seconds as the label; append <strong>+s</strong><em>scale</em> to set the length
 in seconds of each frame [Default is 1/<em>framerate</em>],
 <strong>s</strong><em>string</em> uses the fixed text <em>string</em> as the label,
@@ -408,7 +462,7 @@ The parallel processing does not depend on OpenMP. <strong>Note</strong>: One co
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -418,6 +472,109 @@ any module-specific option (but not the GMT common options), then exit.</p>
 <dt><strong>--PAR</strong>=<em>value</em></dt><dd><p>Temporarily override a GMT default setting; repeatable. See <a class="reference internal" href="gmt.conf.html"><span class="doc">gmt.conf</span></a> for parameters.</p>
 </dd>
 </dl>
+</section>
+<section id="generate-1d-array">
+<h2>Generate 1D Array<a class="headerlink" href="#generate-1d-array" title="Permalink to this headline">¶</a></h2>
+<p>We will demonstrate the use of options for creating 1-D arrays via <a class="reference internal" href="gmtmath.html"><span class="doc">gmtmath</span></a>.
+Make an evenly spaced coordinate array from <em>min</em> to <em>max</em> in steps of <em>inc</em>, e.g.,:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt math -o0 -T3.1/4.2/0.1 <span class="nv">T</span> <span class="o">=</span>
+<span class="m">3</span>.1
+<span class="m">3</span>.2
+<span class="m">3</span>.3
+<span class="m">3</span>.4
+<span class="m">3</span>.5
+<span class="m">3</span>.6
+<span class="m">3</span>.7
+</pre></div>
+</div>
+<p>Append <strong>+b</strong> if we should take log2 of <em>min</em> and <em>max</em>, get their nearest integers,
+build an equidistant log2-array using <em>inc</em> integer increments in log2, then undo
+the log2 conversion. E.g., <strong>-T</strong>3/20/1<strong>+b</strong> will produce this sequence:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt math -o0 -T3/20/1+b <span class="nv">T</span> <span class="o">=</span>
+<span class="m">4</span>
+<span class="m">8</span>
+<span class="m">16</span>
+</pre></div>
+</div>
+<p>Append <strong>+l</strong> if we should take log10 of <em>min</em> and <em>max</em> and build an
+array where <em>inc</em> can be 1 (every magnitude), 2, (1, 2, 5 times magnitude) or 3
+(1-9 times magnitude).  E.g., <strong>-T</strong>7/135/2<strong>+l</strong> will produce this sequence:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt math -o0 -T7/135/2+l <span class="nv">T</span> <span class="o">=</span>
+<span class="m">10</span>
+<span class="m">20</span>
+<span class="m">50</span>
+<span class="m">100</span>
+</pre></div>
+</div>
+<p>For output values less frequently than every magnitude, use a negative integer <em>inc</em>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt math -o0 -T1e-4/1e4/-2+l <span class="nv">T</span> <span class="o">=</span>
+<span class="m">0</span>.0001
+<span class="m">0</span>.01
+<span class="m">1</span>
+<span class="m">100</span>
+<span class="m">10000</span>
+</pre></div>
+</div>
+<p>Append <strong>+i</strong> if <em>inc</em> is a fractional number and it is cleaner to give its reciprocal
+value instead.  To set up times for a 24-frames per second animation lasting 1 minute, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt math -o0 -T0/60/24+i <span class="nv">T</span> <span class="o">=</span>
+<span class="m">0</span>
+<span class="m">0</span>.0416666666667
+<span class="m">0</span>.0833333333333
+<span class="m">0</span>.125
+<span class="m">0</span>.166666666667
+...
+</pre></div>
+</div>
+<p>Append <strong>+n</strong> if <em>inc</em> is meant to indicate the <em>number</em> of equidistant coordinates
+instead.  To have exactly 5 equidistant values from 3.44 and 7.82, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt math -o0 -T3.44/7.82/5+n <span class="nv">T</span> <span class="o">=</span>
+<span class="m">3</span>.44
+<span class="m">4</span>.535
+<span class="m">5</span>.63
+<span class="m">6</span>.725
+<span class="m">7</span>.82
+</pre></div>
+</div>
+<p>Alternatively, let <em>inc</em> be a <em>file</em> with output coordinates in the first column,
+or provide a comma-separated <em>list</em> of specific coordinates, such as the first 6
+Fibonacci numbers:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt math -o0 -T0,1,1,2,3,5 <span class="nv">T</span> <span class="o">=</span>
+<span class="m">0</span>
+<span class="m">1</span>
+<span class="m">1</span>
+<span class="m">2</span>
+<span class="m">3</span>
+<span class="m">5</span>
+</pre></div>
+</div>
+<p><strong>Note</strong>: Should you need to ensure that the coordinates are unique and sorted (in case the
+<em>file</em> or <em>list</em> are not sorted or have duplicates) then supply the <strong>+u</strong> modifier.</p>
+<p>If you only want a <em>single</em> value
+then you must append a comma to distinguish the list from the setting of an increment.</p>
+<p>If the module allows you to set up an absolute time series, append a valid time unit from the list
+<strong>y</strong>ear, m<strong>o</strong>nth, <strong>d</strong>ay, <strong>h</strong>our, <strong>m</strong>inute, and <strong>s</strong>econd
+to the given increment; add <strong>+t</strong> to ensure time column (or use <strong>-f</strong>). <strong>Note</strong>: The internal time
+unit is still controlled independently by <a class="reference internal" href="gmt.conf.html#term-TIME_UNIT"><span class="xref std std-term">TIME_UNIT</span></a>.  The first 7 days of March 2020:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt math -o0 -T2020-03-01T/2020-03-07T/1d <span class="nv">T</span> <span class="o">=</span>
+<span class="m">2020</span>-03-01T00:00:00
+<span class="m">2020</span>-03-02T00:00:00
+<span class="m">2020</span>-03-03T00:00:00
+<span class="m">2020</span>-03-04T00:00:00
+<span class="m">2020</span>-03-05T00:00:00
+<span class="m">2020</span>-03-06T00:00:00
+<span class="m">2020</span>-03-07T00:00:00
+</pre></div>
+</div>
+<p>A few modules allow for <strong>+a</strong> which will paste the coordinate array to the output table.</p>
+<p>Likewise, if the module allows you to set up a spatial distance series (with distances computed
+from the first two data columns), specify a new increment as <em>inc</em> with a geospatial distance unit from the list
+<strong>d</strong>egree (arc), <strong>m</strong>inute (arc), <strong>s</strong>econd (arc), m<strong>e</strong>ter, <strong>f</strong>oot, <strong>k</strong>ilometer,
+<strong>M</strong>iles (statute), <strong>n</strong>autical miles, or s<strong>u</strong>rvey foot; see <strong>-j</strong> for calculation mode.
+To interpolate Cartesian distances instead, you must use the special unit <strong>c</strong>.</p>
+<p>Finally, if you are only providing an increment and will obtain <em>min</em> and <em>max</em> from the data, then it is
+possible (<em>max</em> - <em>min</em>)/<em>inc</em> is not an integer, as required.  If so, then <em>inc</em> will be adjusted to fit the range.
+Alternatively, append <strong>+e</strong> to keep <em>inc</em> exact and adjust <em>max</em> instead (keeping <em>min</em> fixed).</p>
 </section>
 <section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
@@ -744,8 +901,8 @@ for various solutions.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on Mar 30, 2022.
       </span></p>
   </div>
 
