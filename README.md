@@ -29,7 +29,6 @@ with help from a global set of [contributors](THANKS.md)
 and support by the [National Science Foundation](http://www.nsf.gov/).
 
 ## The GMT World Domination
-meow
 
 Considering its flexibility at no charge, people worldwide are using GMT in their
 work and at home. Most users of GMT are Earth, ocean or planetary scientists, but
